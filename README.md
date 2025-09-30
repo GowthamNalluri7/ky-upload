@@ -19,7 +19,7 @@ This project implements a **two-page flow** for client financial data management
 ## Getting Started
 
 ### 1. Clone the repository
-git clone https://github.com/<your-username>/cashflow-pro.git
+git clone https://github.com/GowthamNalluri7/ky-upload.git
 cd cashflow-pro
 
 ### 2. Install dependencies
