@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 
+
 export default function Dashboard() {
   return (
     <div className="min-h-screen w-full bg-gradient-to-br from-slate-50 to-slate-100">
