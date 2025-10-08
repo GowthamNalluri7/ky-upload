@@ -40,26 +40,35 @@ const Sidebar: React.FC<SidebarProps> = () => {
   ];
 
   return (
-    <div className="sidebar">
-      <div className="sidebar-header">
-        <div className="user-profile">
-          <div className="avatar-placeholder"></div>
-          <div className="user-info">
-            <h4>User Name</h4>
-            <p>#ID 123456789</p>
+    <div className="fixed left-0 top-0 w-64 h-screen bg-gradient-to-b from-slate-800 to-slate-700 text-white overflow-y-auto">
+      {/* User Profile Section */}
+      <div className="p-5 border-b border-white/10">
+        <div className="flex items-center gap-3">
+          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-purple-700 border-2 border-white/20" />
+          <div>
+            <h4 className="text-base font-semibold">User Name</h4>
+            <p className="text-xs text-white/70">#ID 123456789</p>
           </div>
         </div>
       </div>
 
-      <nav className="sidebar-nav">
+      {/* Navigation Menu */}
+      <nav className="py-2.5">
         {menuItems.map((item) => (
           <button
             key={item.id}
-            className={`nav-item ${activeItem === item.id ? 'active' : ''}`}
             onClick={() => setActiveItem(item.id)}
+            className={`
+              w-full flex items-center gap-3 px-5 py-3.5 
+              text-sm font-medium transition-all duration-200
+              ${activeItem === item.id
+                ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white border-r-4 border-blue-400'
+                : 'text-white/80 hover:bg-white/10 hover:text-white'
+              }
+            `}
           >
-            <span className="nav-icon">{item.icon}</span>
-            <span className="nav-label">{item.label}</span>
+            <span className="text-lg">{item.icon}</span>
+            <span>{item.label}</span>
           </button>
         ))}
       </nav>

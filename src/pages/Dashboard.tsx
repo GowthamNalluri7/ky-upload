@@ -1,11 +1,13 @@
 import { Link } from "react-router-dom";
-import Sidebar from "../components/Aside";
+import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
+import StatsCards from "../components/StatsCard";
 
 
 export default function Dashboard() {
   return (
     <div className="min-h-screen w-full bg-gradient-to-br from-slate-50 to-slate-100">
+      <Header />
       <Sidebar />
       {/* Header */}
       <header className="mx-auto w-full max-w-6xl px-6 pt-10">
@@ -19,7 +21,6 @@ export default function Dashboard() {
             </p>
           </div>
 
-          <Header />
           <Link
             to="/upload"
             className="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-5 py-2.5 text-white shadow hover:bg-indigo-500"

@@ -6,7 +6,7 @@ interface HeaderProps { }
 
 const Header: React.FC<HeaderProps> = () => {
   return (
-    <header className="header">
+    <header className="header w-11/12 mx-60">
       <div className="header-left">
         <h1>Sales Update</h1>
       </div>
@@ -22,11 +22,11 @@ const Header: React.FC<HeaderProps> = () => {
         </div>
       </div>
 
-      <div className="header-right">
+      <div className="header-right mx-24">
         <div className="header-actions">
           <button className="notification-btn">
             <FiBell />
-            <span className="notification-badge">4</span>
+            <span className="notification-badge">9</span>
           </button>
           <button className="notification-btn">
             <FiSettings />
