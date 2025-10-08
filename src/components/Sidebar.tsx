@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import {
   FiHome,
   FiUsers,
@@ -19,25 +20,28 @@ interface MenuItem {
   id: string;
   label: string;
   icon: React.ReactNode;
-  active?: boolean;
+  path?: string;
 }
 
 const Sidebar: React.FC<SidebarProps> = () => {
-  const [activeItem, setActiveItem] = useState('sales-update');
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const menuItems: MenuItem[] = [
-    { id: 'dashboard', label: 'Dashboard', icon: <FiHome /> },
-    { id: 'accounts', label: 'Accounts', icon: <FiUsers /> },
-    { id: 'sales-update', label: 'Sales Update', icon: <FiTrendingUp />, active: true },
-    { id: 'product-list', label: 'Product List', icon: <FiPackage /> },
-    { id: 'store-list', label: 'Store List', icon: <FiMapPin /> },
-    { id: 'delivery-update', label: 'Delivery Update', icon: <FiTruck /> },
+    { id: 'dashboard', label: 'Dashboard', icon: <FiHome />, path: '/' },
+    { id: 'accounts', label: 'Accounts', icon: <FiUsers />, path: '/accounts' },
+    { id: 'forecasting', label: 'Forecasting', icon: <FiTrendingUp />, path: '/forecasting' },
+    { id: 'finances', label: 'Finances', icon: <FiTruck />, path: '/finances' },
     { id: 'payment', label: 'Payment', icon: <FiCreditCard /> },
     { id: 'invoice', label: 'Invoice', icon: <FiFileText /> },
     { id: 'task-schedule', label: 'Task Schedule', icon: <FiCalendar /> },
     { id: 'documents', label: 'Documents', icon: <FiFolder /> },
     { id: 'support', label: 'Support', icon: <FiLifeBuoy /> },
   ];
+
+  const handleNavigate = (path: string) => {
+    navigate(path);
+  };
 
   return (
     <div className="fixed left-0 top-0 w-64 h-screen bg-gradient-to-b from-slate-800 to-slate-700 text-white overflow-y-auto">
@@ -57,11 +61,11 @@ const Sidebar: React.FC<SidebarProps> = () => {
         {menuItems.map((item) => (
           <button
             key={item.id}
-            onClick={() => setActiveItem(item.id)}
+            onClick={() => handleNavigate(item.path)}
             className={`
               w-full flex items-center gap-3 px-5 py-3.5 
               text-sm font-medium transition-all duration-200
-              ${activeItem === item.id
+              ${location.pathname === item.path
                 ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white border-r-4 border-blue-400'
                 : 'text-white/80 hover:bg-white/10 hover:text-white'
               }

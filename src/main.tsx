@@ -7,6 +7,7 @@ import Dashboard from "./pages/Dashboard";
 import UploadPage from "./pages/UploadPage";
 import LoginPage from "./pages/Login";
 import SignupPage from "./pages/SignUp";
+import ForecastingPage from "./pages/Forecasting";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -14,6 +15,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/upload" element={<UploadPage />} />
+        <Route path="/forecasting" element={<ForecastingPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
