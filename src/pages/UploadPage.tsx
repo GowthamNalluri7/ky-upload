@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Sidebar from "../components/Aside";
 
 /** Document type dropdown options */
 const DOC_OPTIONS = [
@@ -94,6 +95,7 @@ export default function UploadPage() {
 
   return (
     <div className="min-h-screen w-full bg-gradient-to-br from-slate-50 to-slate-100">
+      <Sidebar />
       {/* Header */}
       <header className="mx-auto w-full max-w-5xl px-4 pt-6">
         <div className="flex items-center gap-3">
@@ -198,11 +200,10 @@ export default function UploadPage() {
           >
             <div className="flex flex-col items-center justify-center px-6 py-12 text-center">
               <div
-                className={`mb-4 flex h-16 w-16 items-center justify-center rounded-full ${
-                  dragActive
+                className={`mb-4 flex h-16 w-16 items-center justify-center rounded-full ${dragActive
                     ? "bg-indigo-100 text-indigo-600"
                     : "bg-indigo-600 text-white"
-                }`}
+                  }`}
               >
                 <svg viewBox="0 0 24 24" fill="none" className="h-7 w-7">
                   <path
@@ -225,11 +226,10 @@ export default function UploadPage() {
                   type="button"
                   onClick={() => inputRef.current?.click()}
                   disabled={chooseDisabled}
-                  className={`inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold shadow-sm transition focus:outline-none focus:ring-2 focus:ring-indigo-300 ${
-                    chooseDisabled
+                  className={`inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold shadow-sm transition focus:outline-none focus:ring-2 focus:ring-indigo-300 ${chooseDisabled
                       ? "cursor-not-allowed bg-slate-100 text-slate-400"
                       : "bg-indigo-600 text-white hover:bg-indigo-500"
-                  }`}
+                    }`}
                 >
                   <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5">
                     <path
