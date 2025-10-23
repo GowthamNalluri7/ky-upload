@@ -1,82 +1,84 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
-  FiHome,
-  FiUsers,
-  FiTrendingUp,
-  FiPackage,
-  FiMapPin,
-  FiTruck,
-  FiCreditCard,
-  FiFileText,
-  FiCalendar,
-  FiFolder,
-  FiLifeBuoy
+  FiChevronLeft,
+  FiChevronRight,
+  FiHome, FiUsers, FiTrendingUp, FiTruck,
+  FiFileText, FiCalendar, FiFolder, FiLifeBuoy
 } from 'react-icons/fi';
 
-interface SidebarProps { }
+const menuItems = [
+  { id: 'dashboard', label: 'Dashboard', icon: <FiHome />, path: '/' },
+  { id: 'forecasting', label: 'Forecasting', icon: <FiTrendingUp />, path: '/forecasting' },
+  { id: 'financials', label: 'Financials', icon: <FiTruck />, path: '/financials' },
+  { id: 'reports', label: 'Reports', icon: <FiFolder />, path: '/reports' },
+  { id: 'support', label: 'Support', icon: <FiLifeBuoy />, path: '/support' },
+];
 
-interface MenuItem {
-  id: string;
-  label: string;
-  icon: React.ReactNode;
-  path?: string;
-}
-
-const Sidebar: React.FC<SidebarProps> = () => {
+const Sidebar = () => {
+  const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
-  const menuItems: MenuItem[] = [
-    { id: 'dashboard', label: 'Dashboard', icon: <FiHome />, path: '/' },
-    { id: 'accounts', label: 'Accounts', icon: <FiUsers />, path: '/accounts' },
-    { id: 'forecasting', label: 'Forecasting', icon: <FiTrendingUp />, path: '/forecasting' },
-    { id: 'finances', label: 'Finances', icon: <FiTruck />, path: '/finances' },
-    { id: 'payment', label: 'Payment', icon: <FiCreditCard /> },
-    { id: 'invoice', label: 'Invoice', icon: <FiFileText /> },
-    { id: 'task-schedule', label: 'Task Schedule', icon: <FiCalendar /> },
-    { id: 'documents', label: 'Documents', icon: <FiFolder /> },
-    { id: 'support', label: 'Support', icon: <FiLifeBuoy /> },
-  ];
-
-  const handleNavigate = (path: string) => {
-    navigate(path);
-  };
-
   return (
-    <div className="fixed left-0 top-0 w-64 h-screen bg-gradient-to-b from-slate-800 to-slate-700 text-white overflow-y-auto">
-      {/* User Profile Section */}
-      <div className="p-5 border-b border-white/10">
-        <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-purple-700 border-2 border-white/20" />
+    <aside className={`fixed left-0 top-0 ${collapsed ? "w-20" : "w-64"} h-screen bg-slate-800 shadow-xl flex flex-col z-20 transition-all duration-300`}>
+      {/* Collapse Button */}
+      <button
+        aria-label="Toggle sidebar"
+        onClick={() => setCollapsed(!collapsed)}
+        className="absolute -right-3 top-6 z-30 bg-white text-slate-800 rounded-full shadow border transition-transform duration-300 flex items-center justify-center w-7 h-7"
+        style={{ border: '1px solid #cbd5e1' }}
+      >
+        <span className={`transition-transform duration-300 ${collapsed ? "rotate-180" : "rotate-0"}`}>
+          <FiChevronLeft />
+        </span>
+      </button>
+
+      {/* Profile Card */}
+      <div className="p-6 relative flex items-center gap-3 bg-slate-700 rounded-2xl mx-4 mt-6 shadow-sm transition-all duration-300 h-20">
+        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-green-500 to-green-700 border-2 border-gray-700 flex items-center justify-center" />
+        {!collapsed && (
           <div>
-            <h4 className="text-base font-semibold">User Name</h4>
-            <p className="text-xs text-white/70">#ID 123456789</p>
+            <h4 className="text-base font-semibold text-white">User Name</h4>
+            <p className="text-xs text-gray-400">#ID 123456789</p>
           </div>
-        </div>
+        )}
       </div>
 
-      {/* Navigation Menu */}
-      <nav className="py-2.5">
-        {menuItems.map((item) => (
-          <button
-            key={item.id}
-            onClick={() => handleNavigate(item.path)}
-            className={`
-              w-full flex items-center gap-3 px-5 py-3.5 
-              text-sm font-medium transition-all duration-200
-              ${location.pathname === item.path
-                ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white border-r-4 border-blue-400'
-                : 'text-white/80 hover:bg-white/10 hover:text-white'
-              }
-            `}
-          >
-            <span className="text-lg">{item.icon}</span>
-            <span>{item.label}</span>
-          </button>
-        ))}
+      {/* Navigation */}
+      <nav className="py-6 flex-1">
+        <ul className="space-y-1 px-2">
+          {menuItems.map((item) => {
+            const isActive = location.pathname === item.path;
+            return (
+              <li key={item.id}>
+                <button
+                  disabled={!item.path}
+                  onClick={() => item.path && navigate(item.path)}
+                  className={`
+                    w-full flex items-center gap-3 px-3.5 py-3 rounded-xl transition-all duration-150 
+                    ${isActive
+                      ? 'bg-gradient-to-r from-green-600/80 to-green-500/60 text-white font-bold shadow-green-900/20 shadow-md'
+                      : 'hover:bg-gray-800 hover:text-white text-gray-400'
+                    }
+                  `}
+                >
+                  <span className={`
+                    text-[1.3rem] flex items-center justify-center
+                    ${isActive ? 'bg-green-700/25 p-2 rounded-lg' : ''}
+                  `}>
+                    {item.icon}
+                  </span>
+                  <span className={`text-sm transition-all duration-200 ${collapsed ? 'opacity-0 w-0 overflow-hidden' : 'opacity-100 w-auto ml-1'}`}>
+                    {item.label}
+                  </span>
+                </button>
+              </li>
+            );
+          })}
+        </ul>
       </nav>
-    </div>
+    </aside>
   );
 };
 

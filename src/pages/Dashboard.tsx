@@ -1,104 +1,102 @@
 import { Link } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
-import StatsCards from "../components/StatsCard";
 
+const colors = {
+  indigo: "bg-[#64748b]", // soft indigo
+  indigoLight: "bg-[#cbd5e1]",
+  green: "bg-emerald-600",
+  greenLight: "bg-[#a3d9a5]",
+  yellow: "bg-[#facc15]",
+  yellowLight: "bg-[#fef3c7]",
+  grayTextDark: "text-[#1e293b]",
+  grayTextMedium: "text-[#475569]",
+  grayBackground: "bg-[#f1f5f9]",
+};
 
-export default function Dashboard() {
+function ScrollableStats() {
+  const stats = [
+    { title: "Active Clients", value: "18,765", icon: "👥", color: colors.indigo },
+    { title: "Monthly Revenue", value: "$1.2M", icon: "💰", color: colors.green },
+    { title: "Fees Saved", value: "$42,679", icon: "💸", color: colors.yellow },
+    { title: "Cash Flow Health", value: "Good", icon: "📈", color: colors.greenLight },
+  ];
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-slate-50 to-slate-100">
-      <Header />
-      <Sidebar />
-      {/* Header */}
-      <header className="mx-auto w-full max-w-6xl px-6 pt-10">
-        <div className="flex items-start justify-between">
-          <div>
-            <h1 className="text-4xl font-extrabold tracking-tight text-slate-900">
-              Client Analysis Dashboard
-            </h1>
-            <p className="mt-2 text-slate-500">
-              Monitor client financial health and identify opportunities
-            </p>
-          </div>
-
-          <Link
-            to="/upload"
-            className="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-5 py-2.5 text-white shadow hover:bg-indigo-500"
-          >
-            <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5">
-              <path
-                d="M12 3v12m0 0l-3-3m3 3l3-3"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <rect
-                x="4"
-                y="15"
-                width="16"
-                height="6"
-                rx="2"
-                stroke="currentColor"
-                strokeWidth="1.6"
-              />
-            </svg>
-            Add Client Data
-          </Link>
+    <div className={`max-w-7xl mx-auto flex gap-6 overflow-x-auto p-6 scrollbar-thin `}>
+      {stats.map(({ title, value, icon, color }) => (
+        <div key={title} className={`${color} min-w-[18.1rem] rounded-3xl p-6 text-white drop-shadow-lg flex flex-col shadow-lg`}>
+          <div className="text-4xl">{icon}</div>
+          <h3 className="mt-4 font-bold text-xl">{title}</h3>
+          <div className="mt-2 text-3xl font-extrabold">{value}</div>
         </div>
-      </header>
-
-      {/* Welcome Card */}
-      <main className="mx-auto w-full max-w-4xl px-6 pb-24 pt-10">
-        <section className="rounded-2xl bg-white/90 p-10 text-center shadow-[0_1px_2px_rgba(16,24,40,0.05),0_10px_20px_-10px_rgba(16,24,40,0.1)]">
-          <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-indigo-600 text-white">
-            <svg viewBox="0 0 24 24" fill="none" className="h-10 w-10">
-              <path
-                d="M4 16l6-6 4 4 6-8"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </div>
-
-          <h2 className="text-2xl font-semibold text-slate-900">
-            Welcome to CashFlow Pro
-          </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-slate-600">
-            Start by uploading client financial data to generate insights, cash
-            flow analysis, and identify business opportunities.
-          </p>
-
-          <div className="mt-8">
-            <Link
-              to="/upload"
-              className="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-6 py-3 text-white shadow hover:bg-indigo-500"
-            >
-              <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5">
-                <path
-                  d="M12 3v12m0 0l-3-3m3 3l3-3"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <rect
-                  x="4"
-                  y="15"
-                  width="16"
-                  height="6"
-                  rx="2"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
-                />
-              </svg>
-              Upload Client Documents
-            </Link>
-          </div>
-        </section>
-      </main>
+      ))}
     </div>
   );
 }
+
+function HeroStatCard() {
+  return (
+    <div className="max-w-7xl mx-auto mt-12 flex rounded-3xl shadow-lg overflow-hidden">
+      <div className={`flex-1 bg-gradient-to-tr from-emerald-600 to-emerald-400 p-12 text-white`}>
+        <div className="uppercase mb-6 text-sm tracking-wide font-semibold opacity-75">Total Cash Managed</div>
+        <div className="text-6xl font-extrabold"> $9.8M </div>
+        <div className="mt-4 text-lg opacity-90">
+          Projected net inflow for next quarter based on current trends.
+        </div>
+        <Link to="/upload" className="inline-block mt-10 px-6 py-3 bg-slate-700 text-white font-medium rounded-full shadow-lg hover:shadow-2xl hover:scale-105 transition duration-300">
+          Upload New Data
+        </Link>
+      </div>
+      <div className={`flex-1 p-12 bg-[#f1f5f9] flex flex-col justify-center rounded-tr-3xl rounded-br-3xl`}>
+        <div className={`${colors.grayTextDark} text-2xl font-semibold`}>Detailed Insights</div>
+        <p className={`${colors.grayTextMedium} mt-2 max-w-sm`}>
+          Get smart recommendations and alerts generated by advanced AI analysis of your cash flow.
+        </p>
+        <div className="mt-8 grid grid-cols-3 gap-8">
+          <div className="flex flex-col items-center gap-2">
+            <div className="bg-[#cbd5e1] text-[#64748b] rounded-lg p-3 text-xl">💡</div>
+            <div className={`${colors.grayTextDark} font-medium`}>DSO Optimized</div>
+            <div className={`${colors.grayTextMedium} text-sm`}>Reduce days sales outstanding by 7%.</div>
+          </div>
+          <div className="flex flex-col items-center gap-2">
+            <div className="bg-[#a3d9a5] text-[#2dc44f] rounded-lg p-3 text-xl">🔄</div>
+            <div className={`${colors.grayTextDark} font-medium`}>Payment Rail Savings</div>
+            <div className={`${colors.grayTextMedium} text-sm`}>Cut payment fees by 15% using AI recommendations.</div>
+          </div>
+          <div className="flex flex-col items-center gap-2">
+            <div className="bg-[#fef3c7] text-[#facc15] rounded-lg p-3 text-xl">📈</div>
+            <div className={`${colors.grayTextDark} font-medium`}>Cash Position Forecast</div>
+            <div className={`${colors.grayTextMedium} text-sm`}>Maintain healthy liquidity buffers one month ahead.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function WidgetGrid() {
+  return (
+    <div className="max-w-7xl mx-auto mt-12 px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+      {[1, 2, 3, 4, 5, 6].map(i => (
+        <div key={i} className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition transform hover:-translate-y-1 cursor-pointer">
+          <div className="text-3xl mb-4">📊</div>
+          <h3 className="font-semibold mb-2 text-lg text-gray-800">Widget Title {i}</h3>
+          <p className="text-gray-600">Brief descriptive text or data metrics describing this section clearly and concisely.</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export default function Dashboard() {
+  return (
+    <div className="min-h-screen bg-slate-200">
+      <Header />
+      <Sidebar />
+      <HeroStatCard />
+      <ScrollableStats />
+      <WidgetGrid />
+    </div>
+  );
+}
+

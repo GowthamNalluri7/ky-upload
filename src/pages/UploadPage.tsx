@@ -94,7 +94,7 @@ export default function UploadPage() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-slate-50 to-slate-100">
+    <div className="min-h-screen w-full bg-slate-200">
       <Sidebar />
       {/* Header */}
       <header className="mx-auto w-full max-w-5xl px-4 pt-6">

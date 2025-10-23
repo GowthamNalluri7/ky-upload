@@ -6,9 +6,8 @@ interface HeaderProps { }
 
 const Header: React.FC<HeaderProps> = () => {
   return (
-    <header className="header w-11/12 mx-60">
-      <div className="header-left">
-        <h1>Sales Update</h1>
+    <header className="header w-full">
+      <div className="header-left mx-24">
       </div>
 
       <div className="header-center">

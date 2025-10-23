@@ -1,17 +1,24 @@
-
 import React, { useState } from 'react';
 import {
   FiPlus,
   FiMoreHorizontal,
   FiThumbsUp,
   FiThumbsDown,
-  FiTrendingUp,
-  FiSettings,
-  FiGrid,
-  FiHelpCircle
+  FiHelpCircle,
 } from 'react-icons/fi';
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
+
+const kyColors = {
+  bluePrimary: "#3A81F1",
+  blueLight: "#AACBFF",
+  greenPrimary: "#2DC44F",
+  greenLight: "#A3D9A5",
+  grayLight: "#EAF2F5",
+  grayDarkText: "#224B21",
+  grayMidText: "#475569",
+  borderLight: "#B0CAAE"
+};
 
 interface Scenario {
   id: string;
@@ -27,12 +34,12 @@ interface MetricData {
 
 const ForecastingPage: React.FC = () => {
   const [scenarios, setScenarios] = useState<Scenario[]>([
-    { id: '1', name: 'If expenses were doubled', active: true }
+    { id: '1', name: 'If expenses were doubled', active: true },
+    { id: '2', name: 'Aggressive collections', active: false },
   ]);
-
   const [activeScenario, setActiveScenario] = useState('1');
 
-  // Sample data for the chart
+  // Chart data (monthly cash balance, in millions)
   const chartData = [
     { month: 'Mar 2021', value: 1.2 },
     { month: 'Apr 2021', value: 2.1 },
@@ -46,235 +53,206 @@ const ForecastingPage: React.FC = () => {
     { month: 'Dec 2021', value: 3.28 },
     { month: 'Jan 2022', value: 3.42, forecast: true },
     { month: 'Feb 2022', value: 2.87, forecast: true },
-    { month: 'Mar 2022', value: null, forecast: true }
+    { month: 'Mar 2022', value: 2.63, forecast: true }
   ];
 
   const userDefinedMetrics: MetricData[] = [
-    { label: 'Vaccine Count', value: '241,000', type: 'user' }
+    { label: 'Total Clients', value: '241', type: 'user' },
+    { label: 'Invoices Sent', value: '5,100', type: 'user' },
   ];
 
   const systemDefinedMetrics: MetricData[] = [
-    { label: 'Marketing spend', value: '12,000', type: 'system' },
-    { label: 'Tests taken', value: '8,591,251', type: 'system' },
-    { label: 'Hospitalisations', value: '21,672', type: 'system' },
-    { label: 'RTPCRs booked', value: '6,123,029', type: 'system' }
+    { label: 'Receivables Due', value: '32,400', type: 'system' },
+    { label: 'Expenses Processed', value: '12,200', type: 'system' },
+    { label: 'Projected Net Flow', value: '$75,000', type: 'system' },
+    { label: 'Gross Margin', value: '58%', type: 'system' }
   ];
 
   const maxValue = Math.max(...chartData.filter(d => d.value).map(d => d.value!));
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Sidebar />
+    <div className="min-h-screen" style={{ backgroundColor: kyColors.grayLight }}>
       <Header />
-      {/* Main Content */}
-      < div className="max-w-7xl mx-auto p-6" >
-        {/* Page Title */}
-        < div className="flex items-center justify-between mb-6" >
-          <h1 className="text-2xl font-bold text-gray-900">Forecast: Total cases</h1>
-          <div className="flex items-center gap-3">
-            <button className="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center gap-2">
-              <FiPlus className="text-lg" />
-              Add scenario
+      <Sidebar />
+      <div className="max-w-7xl mx-auto p-8">
+        {/* Title and action buttons */}
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <h1 className="text-3xl font-extrabold" style={{ color: 'black' }}>Forecasting</h1>
+            <p className="mt-1" style={{ color: kyColors.grayMidText }}>Visualize monthly cashflow forecasts and test scenarios to optimize decisions.</p>
+          </div>
+          <div className="flex items-center gap-4">
+            <button
+              className="flex items-center gap-2 rounded-lg px-4 py-2"
+              style={{ backgroundColor: kyColors.bluePrimary, color: "white" }}
+              onClick={() => alert("Add scenario clicked")}
+            >
+              <FiPlus size={18} />
+              Add Scenario
             </button>
-            <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
-              <FiMoreHorizontal className="text-gray-600" />
+            <button className="p-2 rounded-lg hover:bg-white transition" style={{ color: kyColors.grayMidText }}>
+              <FiMoreHorizontal size={18} />
             </button>
           </div>
-        </div >
+        </div>
 
-        {/* Main Card */}
-        < div className="bg-white rounded-xl shadow-sm border border-gray-200" >
-          <div className="p-6">
-            <div className="flex gap-6">
-              {/* Left Sidebar - Scenarios */}
-              <div className="w-48 flex-shrink-0">
-                <div className="space-y-2">
-                  <h3 className="text-sm font-medium text-gray-500 mb-3">KPI forecast</h3>
-                  {scenarios.map((scenario) => (
-                    <button
-                      key={scenario.id}
-                      onClick={() => setActiveScenario(scenario.id)}
-                      className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors $\{
-                        activeScenario === scenario.id
-                          ? 'bg-blue-100 text-blue-700 font-medium'
-                          : 'text-gray-600 hover:bg-gray-50'
-                      }`}
-                    >
-                      {scenario.name}
-                    </button>
-                  ))}
-                  <button className="w-full text-left px-3 py-2 text-sm text-gray-400 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-colors">
-                    + Add scenario
-                  </button>
-                </div>
-              </div>
-
-              {/* Main Chart Area */}
-              <div className="flex-1">
-                <div className="mb-6">
-                  <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-lg font-semibold text-gray-900">
-                      If expenses were doubled
-                    </h2>
-                    <button className="p-1 hover:bg-gray-100 rounded">
-                      <FiMoreHorizontal className="text-gray-400" />
-                    </button>
-                  </div>
-
-                  {/* Chart */}
-                  <div className="relative h-64 mb-6">
-                    {/* Y-axis labels */}
-                    <div className="absolute left-0 top-0 bottom-8 flex flex-col justify-between text-xs text-gray-500">
-                      <span>4M</span>
-                      <span>3M</span>
-                      <span>2M</span>
-                      <span>1M</span>
-                      <span>0</span>
-                    </div>
-
-                    {/* Chart area */}
-                    <div className="ml-8 h-full relative">
-                      {/* Grid lines */}
-                      <div className="absolute inset-0 flex flex-col justify-between">
-                        {[0, 1, 2, 3, 4].map((i) => (
-                          <div key={i} className="border-t border-gray-100"></div>
-                        ))}
-                      </div>
-
-                      {/* Line chart */}
-                      <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none">
-                        {/* Actual data line (blue) */}
-                        <polyline
-                          points={chartData
-                            .filter((d, i) => !d.forecast && d.value)
-                            .map((d, i, arr) => {
-                              const x = (i / (chartData.length - 1)) * 100;
-                              const y = 100 - (d.value! / maxValue) * 90;
-                              return `${x},${y}`;
-                            })
-                            .join(' ')}
-                          fill="none"
-                          stroke="#3b82f6"
-                          strokeWidth="2.5"
-                          className="drop-shadow-sm"
-                        />
-
-                        {/* Forecast line (dotted) */}
-                        <polyline
-                          points={chartData
-                            .filter((d, i) => i >= 9 && d.value)
-                            .map((d, i, arr) => {
-                              const dataIndex = chartData.findIndex(item => item === d);
-                              const x = (dataIndex / (chartData.length - 1)) * 100;
-                              const y = 100 - (d.value! / maxValue) * 90;
-                              return `${x},${y}`;
-                            })
-                            .join(' ')}
-                          fill="none"
-                          stroke="#94a3b8"
-                          strokeWidth="2"
-                          strokeDasharray="4 4"
-                        />
-
-                        {/* Data points */}
-                        {chartData.filter(d => d.value && !d.forecast).map((d, i) => {
-                          const dataIndex = chartData.findIndex(item => item === d);
-                          const x = (dataIndex / (chartData.length - 1)) * 100;
-                          const y = 100 - (d.value! / maxValue) * 90;
-                          return (
-                            <circle
-                              key={i}
-                              cx={`${x}%`}
-                              cy={`${y}%`}
-                              r="4"
-                              fill="white"
-                              stroke="#3b82f6"
-                              strokeWidth="2"
-                            />
-                          );
-                        })}
-
-                        {/* Special markers */}
-                        <circle cx="70%" cy="42%" r="5" fill="#f97316" />
-                      </svg>
-
-                      {/* Data labels */}
-                      <div className="absolute" style={{ left: '70%', top: '38%' }}>
-                        <span className="text-xs font-medium text-gray-700 bg-white px-1">3.41</span>
-                      </div>
-                      <div className="absolute" style={{ left: '78%', top: '48%' }}>
-                        <span className="text-xs font-medium text-gray-700 bg-white px-1">3.18</span>
-                      </div>
-                      <div className="absolute" style={{ left: '85%', top: '42%' }}>
-                        <span className="text-xs font-medium text-gray-700 bg-white px-1">3.28</span>
-                      </div>
-                      <div className="absolute" style={{ left: '91%', top: '36%' }}>
-                        <span className="text-xs font-medium text-gray-700 bg-white px-1">3.42</span>
-                      </div>
-                      <div className="absolute" style={{ left: '91%', top: '52%' }}>
-                        <span className="text-xs font-medium text-orange-600 bg-white px-1">2.87</span>
-                      </div>
-                    </div>
-
-                    {/* X-axis labels */}
-                    <div className="absolute bottom-0 left-8 right-0 flex justify-between text-xs text-gray-500">
-                      {['Mar 2021', 'Jun 2021', 'Sep 2021', 'Dec 2021', 'Mar 2022'].map((label, i) => (
-                        <span key={i}>{label}</span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Feedback Section */}
-                <div className="flex items-center justify-end gap-2 pt-4 border-t border-gray-100">
-                  <span className="text-sm text-gray-600">Is this insight useful?</span>
-                  <button className="p-2 hover:bg-gray-50 rounded-lg transition-colors">
-                    <FiThumbsUp className="text-green-600" />
-                  </button>
-                  <button className="p-2 hover:bg-gray-50 rounded-lg transition-colors">
-                    <FiThumbsDown className="text-gray-400" />
-                  </button>
-                </div>
-              </div>
-
-              {/* Right Sidebar - Metrics */}
-              <div className="w-64 flex-shrink-0">
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <div className="mb-4">
-                    <h3 className="text-xs font-medium text-gray-500 mb-1">
-                      Underlying measures
-                    </h3>
-                    <p className="text-xs text-gray-400">Jan 2022</p>
-                  </div>
-
-                  {/* User Defined Metrics */}
-                  <div className="mb-4">
-                    <h4 className="text-xs font-medium text-gray-500 mb-2">User defined</h4>
-                    {userDefinedMetrics.map((metric, index) => (
-                      <div key={index} className="flex justify-between items-center py-2">
-                        <span className="text-sm text-gray-700">{metric.label}</span>
-                        <span className="text-sm font-semibold text-gray-900">{metric.value}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* System Defined Metrics */}
-                  <div>
-                    <h4 className="text-xs font-medium text-gray-500 mb-2">System defined</h4>
-                    {systemDefinedMetrics.map((metric, index) => (
-                      <div key={index} className="flex justify-between items-center py-2">
-                        <span className="text-sm text-gray-700">{metric.label}</span>
-                        <span className="text-sm font-medium text-gray-900">{metric.value}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
+        {/* Content card */}
+        <div className="bg-white rounded-2xl shadow-lg border border-gray-300 p-8 flex gap-8">
+          {/* Scenario selector */}
+          <aside className="w-56 flex-shrink-0">
+            <h3 className="text-xs font-semibold uppercase mb-4" style={{ color: kyColors.grayMidText }}>KPI Forecasts</h3>
+            <div className="space-y-2">
+              {scenarios.map((sc) => (
+                <button
+                  key={sc.id}
+                  onClick={() => setActiveScenario(sc.id)}
+                  style={{
+                    backgroundColor: sc.id === activeScenario ? kyColors.blueLight : "transparent",
+                    color: sc.id === activeScenario ? kyColors.bluePrimary : kyColors.grayDarkText,
+                  }}
+                  className="w-full text-left px-4 py-2 rounded-lg font-medium hover:bg-gray-100 transition"
+                >
+                  {sc.name}
+                </button>
+              ))}
+              <button className="w-full text-left px-4 py-2 text-sm text-gray-400 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition">
+                + Add scenario
+              </button>
             </div>
-          </div>
-        </div >
-      </div >
-    </div >
+          </aside>
+
+          {/* Chart area */}
+          <main className="flex-1 min-w-0">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-lg font-semibold" style={{ color: kyColors.grayDarkText }}>
+                {scenarios.find((s) => s.id === activeScenario)?.name}
+              </h2>
+              <button className="p-1 rounded hover:bg-gray-100" style={{ color: kyColors.grayMidText }}>
+                <FiMoreHorizontal size={18} />
+              </button>
+            </div>
+
+            <div className="relative h-64 bg-white rounded-xl shadow-inner py-2 px-0 mb-6 overflow-hidden">
+              {/* Y axis */}
+              <div className="absolute left-8 top-5 bottom-6 flex flex-col justify-between text-xs text-gray-400 font-medium py-3">
+                <span>{maxValue.toFixed(1)}M</span>
+                <span>{(maxValue * 0.75).toFixed(1)}M</span>
+                <span>{(maxValue * 0.5).toFixed(1)}M</span>
+                <span>{(maxValue * 0.25).toFixed(1)}M</span>
+                <span>0</span>
+              </div>
+              {/* X axis */}
+              <div className="absolute bottom-3 left-10 right-4 flex justify-between text-xs text-gray-400 font-medium">
+                {chartData.filter((_, i) => i % 3 === 0).map((d) => <span key={d.month}>{d.month}</span>)}
+              </div>
+
+              <svg viewBox="0 0 500 200" width="90%" height="90%" className="absolute left-6 top-5">
+                <defs>
+                  <linearGradient id="gradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor={kyColors.bluePrimary} stopOpacity="0.3" />
+                    <stop offset="100%" stopColor={kyColors.bluePrimary} stopOpacity="0" />
+                  </linearGradient>
+                </defs>
+
+                <polyline
+                  fill="url(#gradient)"
+                  stroke="none"
+                  points={chartData
+                    .map((d, i, arr) => {
+                      const x = (i / (arr.length - 1)) * 480 + 10;
+                      const y = 170 - ((d.value! / maxValue) * 110);
+                      return `${x},${y}`;
+                    })
+                    .join(" ")}
+                  style={{ filter: "blur(1.5px)" }}
+                />
+
+                <polyline
+                  fill="none"
+                  stroke={kyColors.bluePrimary}
+                  strokeWidth="3"
+                  points={chartData
+                    .map((d, i, arr) => {
+                      const x = (i / (arr.length - 1)) * 480 + 10;
+                      const y = 170 - ((d.value! / maxValue) * 110);
+                      return `${x},${y}`;
+                    })
+                    .join(" ")}
+                />
+
+                {chartData.map((d, i, arr) => {
+                  const x = (i / (arr.length - 1)) * 480 + 10;
+                  const y = 170 - ((d.value! / maxValue) * 110);
+                  return (
+                    <circle key={i} cx={x} cy={y} r={6} fill="white" stroke={kyColors.bluePrimary} strokeWidth="2" />
+                  );
+                })}
+
+                <polyline
+                  points={chartData
+                    .filter(d => d.forecast)
+                    .map((d, i, arr) => {
+                      const idx = chartData.indexOf(d);
+                      const x = (idx / (chartData.length - 1)) * 480 + 10;
+                      const y = 170 - ((d.value! / maxValue) * 110);
+                      return `${x},${y}`;
+                    })
+                    .join(" ")}
+                  fill="none"
+                  stroke="#94a3b8"
+                  strokeWidth="2"
+                  strokeDasharray="6 4"
+                />
+              </svg>
+            </div>
+
+            {/* Feedback buttons */}
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-gray-100">
+              <span style={{ color: kyColors.grayMidText }} className="text-sm">
+                Is this insight useful?
+              </span>
+              <button className="p-2 hover:bg-gray-100 rounded-lg transition" style={{ color: kyColors.greenPrimary }}>
+                <FiThumbsUp />
+              </button>
+              <button className="p-2 hover:bg-gray-100 rounded-lg transition" style={{ color: kyColors.grayMidText }}>
+                <FiThumbsDown />
+              </button>
+            </div>
+          </main>
+          {/* Metrics sidebar */}
+          <aside className="w-64 flex-shrink-0 bg-gray-50 rounded-xl p-5 shadow-inner">
+            <div className="mb-6">
+              <h3 className="text-xs font-semibold text-gray-500 mb-1 uppercase tracking-wide">Underlying Metrics</h3>
+              <p className="text-xs text-gray-400">Jan 2022</p>
+            </div>
+            <div className="mb-6">
+              <h4 className="text-xs font-semibold text-green-700 mb-2">User Defined</h4>
+              {userDefinedMetrics.map(({ label, value }, idx) => (
+                <div key={idx} className="flex justify-between py-2 text-sm font-semibold text-gray-700">
+                  <span>{label}</span>
+                  <span className="text-gray-900">{value}</span>
+                </div>
+              ))}
+            </div>
+            <div>
+              <h4 className="text-xs font-semibold text-green-700 mb-2">System Defined</h4>
+              {systemDefinedMetrics.map(({ label, value }, idx) => (
+                <div key={idx} className="flex justify-between py-2 text-sm font-semibold text-gray-700">
+                  <span>{label}</span>
+                  <span className="text-gray-900">{value}</span>
+                </div>
+              ))}
+            </div>
+            <button
+              className="w-full mt-6 bg-blue-50 border border-blue-100 text-blue-700 font-semibold py-2 rounded-lg shadow hover:bg-blue-100 transition"
+              style={{ color: kyColors.bluePrimary }}
+            >
+              <FiHelpCircle className="inline mr-2" /> Need help with metrics?
+            </button>
+          </aside>
+        </div>
+      </div>
+    </div>
   );
 };
 
