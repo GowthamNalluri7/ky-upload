@@ -30,8 +30,8 @@ const LoginPage: React.FC<LoginPageProps> = () => {
       <div className="w-full max-w-md">
         {/* Logo & Header */}
         <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl mx-auto mb-4 flex items-center justify-center">
-            <span className="text-white font-bold text-2xl">L</span>
+          <div className="w-16 h-16 bg-emerald-500 rounded-2xl mx-auto mb-4 flex items-center justify-center">
+            <span className="text-white font-bold text-2xl">KY</span>
           </div>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome back!</h1>
           <p className="text-gray-600">Please sign in to your account</p>
@@ -52,7 +52,7 @@ const LoginPage: React.FC<LoginPageProps> = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
                   placeholder="Enter your email"
                   required
                 />
@@ -71,7 +71,7 @@ const LoginPage: React.FC<LoginPageProps> = () => {
                   name="password"
                   value={formData.password}
                   onChange={handleInputChange}
-                  className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
                   placeholder="Enter your password"
                   required
                 />
@@ -92,11 +92,11 @@ const LoginPage: React.FC<LoginPageProps> = () => {
                   type="checkbox"
                   checked={rememberMe}
                   onChange={(e) => setRememberMe(e.target.checked)}
-                  className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
+                  className="w-4 h-4 text-emerald-600 rounded focus:ring-blue-500"
                 />
                 <span className="ml-2 text-sm text-gray-600">Remember me</span>
               </label>
-              <a href="#" className="text-sm text-blue-600 hover:text-blue-700">
+              <a href="#" className="text-sm text-emerald-600 hover:text-blue-700">
                 Forgot password?
               </a>
             </div>
@@ -104,7 +104,7 @@ const LoginPage: React.FC<LoginPageProps> = () => {
             {/* Sign In Button */}
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 rounded-lg font-medium hover:from-blue-700 hover:to-blue-800 transition-all transform hover:translate-y-[-1px] shadow-lg"
+              className="w-full bg-emerald-500 text-white py-3 rounded-lg font-medium hover:from-blue-700 hover:to-blue-800 transition-all transform hover:translate-y-[-1px] shadow-lg"
             >
               Sign In
             </button>
@@ -146,7 +146,7 @@ const LoginPage: React.FC<LoginPageProps> = () => {
           <div className="mt-6 text-center">
             <p className="text-sm text-gray-600">
               Don't have an account?{' '}
-              <a href="/signup" className="text-blue-600 hover:text-blue-700 font-medium">
+              <a href="/signup" className="text-emerald-600 hover:text-blue-700 font-medium">
                 Sign up
               </a>
             </p>

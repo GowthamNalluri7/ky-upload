@@ -40,7 +40,6 @@ const SignUpPage: React.FC<SignUpPageProps> = () => {
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-2xl font-bold text-gray-900 mb-2">Sign Up</h1>
-          <p className="text-gray-600">First Name, Last Name and email address</p>
         </div>
 
         {/* Form */}
@@ -54,7 +53,7 @@ const SignUpPage: React.FC<SignUpPageProps> = () => {
                   name="firstName"
                   value={formData.firstName}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                   placeholder="First Name"
                   required
                 />
@@ -65,7 +64,7 @@ const SignUpPage: React.FC<SignUpPageProps> = () => {
                   name="lastName"
                   value={formData.lastName}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                   placeholder="Last Name"
                   required
                 />
@@ -79,7 +78,7 @@ const SignUpPage: React.FC<SignUpPageProps> = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleInputChange}
-                className="w-full px-3 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                 placeholder="Email"
                 required
               />
@@ -92,7 +91,7 @@ const SignUpPage: React.FC<SignUpPageProps> = () => {
                 name="password"
                 value={formData.password}
                 onChange={handleInputChange}
-                className="w-full px-3 py-3 pr-10 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-3 pr-10 border border-gray-300 rounded-md focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                 placeholder="Password"
                 required
               />
@@ -112,18 +111,18 @@ const SignUpPage: React.FC<SignUpPageProps> = () => {
                   type="checkbox"
                   checked={acceptTerms}
                   onChange={(e) => setAcceptTerms(e.target.checked)}
-                  className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
+                  className="w-4 h-4 text-emerald-600 rounded focus:ring-blue-500"
                   required
                 />
               </div>
               <div className="text-sm">
                 <p className="text-gray-600">
                   I agree to KY Software{' '}
-                  <a href="#" className="text-blue-600 hover:text-blue-700 underline">
+                  <a href="#" className="text-emerald-600 hover:text-blue-700 underline">
                     Terms, Privacy Policy
                   </a>{' '}
                   and{' '}
-                  <a href="#" className="text-blue-600 hover:text-blue-700 underline">
+                  <a href="#" className="text-emerald-600 hover:text-blue-700 underline">
                     Fees
                   </a>
                   .
@@ -135,7 +134,7 @@ const SignUpPage: React.FC<SignUpPageProps> = () => {
             <button
               type="submit"
               disabled={!acceptTerms}
-              className="w-full bg-blue-600 text-white py-3 rounded-md font-medium hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+              className="w-full bg-emerald-600 text-white py-3 rounded-md font-medium hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
             >
               Sign up with email
             </button>
@@ -144,7 +143,7 @@ const SignUpPage: React.FC<SignUpPageProps> = () => {
             <div className="text-center">
               <p className="text-sm text-gray-600">
                 Already have account?{' '}
-                <a href="/login" className="text-blue-600 hover:text-blue-700 font-medium">
+                <a href="/login" className="text-emerald-600 hover:text-blue-700 font-medium">
                   Log in
                 </a>
               </p>

@@ -88,7 +88,7 @@ export default function UploadPage() {
 
   const chooseDisabled = !docType;
   const dzState = dragActive
-    ? "border-indigo-400 bg-indigo-50/40"
+    ? "border-emerald-400 bg-emerald-50/40"
     : "border-slate-300 bg-white";
 
   const navigate = useNavigate();
@@ -131,16 +131,16 @@ export default function UploadPage() {
       <main className="mx-auto w-full max-w-5xl px-4 pb-24 pt-6">
         <section className="rounded-2xl bg-white/90 shadow-[0_1px_2px_rgba(16,24,40,0.05),0_10px_20px_-10px_rgba(16,24,40,0.1)] backdrop-blur p-6 sm:p-8">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
-              <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5">
+            <div className="flex h-15 w-15 items-center justify-center rounded-xl bg-emerald-200 text-emerald-600">
+              <svg viewBox="0 0 24 24" fill="none" className="h-9 w-9">
                 <path
                   d="M4 4h16v16H4z"
-                  stroke="currentColor"
+                  stroke="green"
                   strokeWidth="1.6"
                 />
                 <path
                   d="M8 8h8M8 12h8M8 16h5"
-                  stroke="currentColor"
+                  stroke="green"
                   strokeWidth="1.6"
                   strokeLinecap="round"
                 />
@@ -157,7 +157,7 @@ export default function UploadPage() {
               htmlFor="doc-type"
               className="mb-2 block text-sm font-medium text-slate-700"
             >
-              Document Type <span className="text-indigo-600">*</span>
+              Document Type <span className="text-red-600">*</span>
             </label>
             <div className="relative max-w-xl">
               <select
@@ -167,7 +167,7 @@ export default function UploadPage() {
                   setDocType(e.target.value as DocType | "");
                   setError("");
                 }}
-                className="peer w-full appearance-none rounded-xl border border-slate-200 bg-white px-4 py-2.5 pr-10 text-slate-900 shadow-sm outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+                className="peer w-full appearance-none rounded-xl border border-slate-200 bg-white px-4 py-2.5 pr-10 text-slate-900 shadow-sm outline-none transition focus:border-emerald-900 focus:ring-2 focus:ring-emerald-100"
               >
                 <option value="">Select document type</option>
                 {DOC_OPTIONS.map((opt) => (
@@ -201,8 +201,8 @@ export default function UploadPage() {
             <div className="flex flex-col items-center justify-center px-6 py-12 text-center">
               <div
                 className={`mb-4 flex h-16 w-16 items-center justify-center rounded-full ${dragActive
-                  ? "bg-indigo-100 text-indigo-600"
-                  : "bg-indigo-600 text-white"
+                  ? "bg-emerald-100 text-emerald-600"
+                  : "bg-emerald-600 text-white"
                   }`}
               >
                 <svg viewBox="0 0 24 24" fill="none" className="h-7 w-7">
@@ -226,9 +226,9 @@ export default function UploadPage() {
                   type="button"
                   onClick={() => inputRef.current?.click()}
                   disabled={chooseDisabled}
-                  className={`inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold shadow-sm transition focus:outline-none focus:ring-2 focus:ring-indigo-300 ${chooseDisabled
+                  className={`inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold shadow-sm transition focus:outline-none focus:ring-2 focus:ring-emerald-400 ${chooseDisabled
                     ? "cursor-not-allowed bg-slate-100 text-slate-400"
-                    : "bg-indigo-600 text-white hover:bg-indigo-500"
+                    : "bg-emerald-600 text-white hover:bg-emerald-500"
                     }`}
                 >
                   <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5">
@@ -333,7 +333,7 @@ export default function UploadPage() {
                 <button
                   type="button"
                   onClick={fakeUpload}
-                  className="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-300"
+                  className="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-300"
                 >
                   <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5">
                     <path
