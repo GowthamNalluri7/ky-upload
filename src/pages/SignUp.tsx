@@ -1,189 +1,137 @@
+import React, { useState } from "react";
+import { FiMail, FiLock, FiUser, FiEye, FiEyeOff } from "react-icons/fi";
+import { FaGoogle, FaFacebook, FaApple } from "react-icons/fa";
 
-import React, { useState } from 'react';
-import {
-  FiMail,
-  FiLock,
-  FiEye,
-  FiEyeOff,
-  FiUser,
-  FiCheck
-} from 'react-icons/fi';
-import { FaGoogle, FaFacebook, FaApple } from 'react-icons/fa';
-
-interface SignUpPageProps { }
-
-const SignUpPage: React.FC<SignUpPageProps> = () => {
+export default function SignupPage() {
+  const [formData, setFormData] = useState({ email: "", password: "", name: "" });
   const [showPassword, setShowPassword] = useState(false);
-  const [acceptTerms, setAcceptTerms] = useState(false);
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: ''
-  });
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }));
+  const handleInputChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Sign up form submitted:', formData);
+    // Replace with actual submit functionality
+    alert("Sign-up submitted: " + JSON.stringify(formData));
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-b from-slate-200 to-emerald-300 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
-        {/* Header */}
+        {/* Logo & Header */}
         <div className="text-center mb-8">
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Sign Up</h1>
+          <div className="w-16 h-16 bg-emerald-500 rounded-2xl mx-auto mb-4 flex items-center justify-center">
+            <span className="text-white font-bold text-2xl">KY</span>
+          </div>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Create your account</h1>
+          <p className="text-gray-600">Sign up to start optimizing your cash flow</p>
         </div>
 
-        {/* Form */}
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-          <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Name Fields */}
-            <div className="grid grid-cols-2 gap-4">
-              <div>
+        {/* Form Card */}
+        <div className="bg-white rounded-2xl shadow-xl p-8">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Name */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+              <div className="relative">
+                <FiUser className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                 <input
                   type="text"
-                  name="firstName"
-                  value={formData.firstName}
+                  name="name"
+                  value={formData.name}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
-                  placeholder="First Name"
-                  required
-                />
-              </div>
-              <div>
-                <input
-                  type="text"
-                  name="lastName"
-                  value={formData.lastName}
-                  onChange={handleInputChange}
-                  className="w-full px-3 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
-                  placeholder="Last Name"
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
+                  placeholder="Your full name"
                   required
                 />
               </div>
             </div>
-
             {/* Email */}
             <div>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                className="w-full px-3 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
-                placeholder="Email"
-                required
-              />
-            </div>
-
-            {/* Password */}
-            <div className="relative">
-              <input
-                type={showPassword ? 'text' : 'password'}
-                name="password"
-                value={formData.password}
-                onChange={handleInputChange}
-                className="w-full px-3 py-3 pr-10 border border-gray-300 rounded-md focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
-                placeholder="Password"
-                required
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
-              >
-                {showPassword ? <FiEyeOff /> : <FiEye />}
-              </button>
-            </div>
-
-            {/* Terms Checkbox */}
-            <div className="flex items-start space-x-3">
-              <div className="flex items-center h-5">
+              <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
+              <div className="relative">
+                <FiMail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                 <input
-                  type="checkbox"
-                  checked={acceptTerms}
-                  onChange={(e) => setAcceptTerms(e.target.checked)}
-                  className="w-4 h-4 text-emerald-600 rounded focus:ring-blue-500"
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
+                  placeholder="Your email"
                   required
                 />
               </div>
-              <div className="text-sm">
-                <p className="text-gray-600">
-                  I agree to KY Software{' '}
-                  <a href="#" className="text-emerald-600 hover:text-blue-700 underline">
-                    Terms, Privacy Policy
-                  </a>{' '}
-                  and{' '}
-                  <a href="#" className="text-emerald-600 hover:text-blue-700 underline">
-                    Fees
-                  </a>
-                  .
-                </p>
+            </div>
+            {/* Password */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Password</label>
+              <div className="relative">
+                <FiLock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  value={formData.password}
+                  onChange={handleInputChange}
+                  className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
+                  placeholder="Choose a password"
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                >
+                  {showPassword ? <FiEyeOff /> : <FiEye />}
+                </button>
               </div>
             </div>
-
+            {/* Terms & Privacy */}
+            <div className="text-sm text-gray-600 flex items-center">
+              <input type="checkbox" required className="mr-2 accent-emerald-600 rounded" />
+              I agree to the <a href="#" className="text-emerald-600 hover:text-blue-700 font-medium ml-1">Terms & Privacy Policy</a>
+            </div>
             {/* Sign Up Button */}
             <button
               type="submit"
-              disabled={!acceptTerms}
-              className="w-full bg-emerald-600 text-white py-3 rounded-md font-medium hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+              className="w-full bg-emerald-500 text-white py-3 rounded-lg font-medium hover:from-blue-700 hover:to-blue-800 transition-all transform hover:translate-y-[-1px] shadow-lg"
             >
-              Sign up with email
+              Sign Up
             </button>
-
-            {/* Already have account */}
-            <div className="text-center">
-              <p className="text-sm text-gray-600">
-                Already have account?{' '}
-                <a href="/login" className="text-emerald-600 hover:text-blue-700 font-medium">
-                  Log in
-                </a>
-              </p>
+            {/* Divider */}
+            <div className="relative my-6">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-300"></div>
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="px-2 bg-white text-gray-500">Or continue with</span>
+              </div>
+            </div>
+            {/* Social Signup */}
+            <div className="grid grid-cols-3 gap-3">
+              <button type="button" className="flex items-center justify-center py-3 px-4 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                <FaGoogle className="text-red-500 text-xl" />
+              </button>
+              <button type="button" className="flex items-center justify-center py-3 px-4 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                <FaFacebook className="text-blue-600 text-xl" />
+              </button>
+              <button type="button" className="flex items-center justify-center py-3 px-4 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                <FaApple className="text-gray-900 text-xl" />
+              </button>
             </div>
           </form>
-        </div>
-
-        {/* Divider */}
-        <div className="relative my-6">
-          <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-gray-300"></div>
+          {/* Sign In Link */}
+          <div className="mt-6 text-center">
+            <p className="text-sm text-gray-600">
+              Already have an account?{" "}
+              <a href="/login" className="text-emerald-600 hover:text-blue-700 font-medium">
+                Sign In
+              </a>
+            </p>
           </div>
-          <div className="relative flex justify-center text-sm">
-            <span className="px-2 bg-gray-50 text-gray-500">OR</span>
-          </div>
-        </div>
-
-        {/* Social Buttons */}
-        <div className="space-y-3">
-          <button className="w-full flex items-center justify-center gap-3 py-3 px-4 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">
-            <FaGoogle className="text-red-500" />
-            <span className="text-gray-700 font-medium">Sign up with Google</span>
-          </button>
-          <button className="w-full flex items-center justify-center gap-3 py-3 px-4 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">
-            <FaFacebook className="text-blue-600" />
-            <span className="text-gray-700 font-medium">Sign up with Facebook</span>
-          </button>
-        </div>
-
-        {/* Footer */}
-        <div className="mt-8 text-center">
-          <p className="text-xs text-gray-500">
-            This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.
-          </p>
         </div>
       </div>
     </div>
   );
-};
-
-export default SignUpPage;
-
+}
 
