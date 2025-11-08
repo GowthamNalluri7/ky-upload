@@ -9,12 +9,36 @@ const dummyReports = [
     id: "1",
     type: "Cash Flow Report",
     typeKey: "cash_flow_report",
-    name: "adsfdfs",
+    name: "anaylsis",
+    status: "processing",
+    date: "Sep 24, 2025",
+  },
+
+  {
+    id: "2",
+    type: "Financial Statement",
+    typeKey: "financial_statement",
+    name: "test",
     status: "processing",
     date: "Sep 24, 2025",
   },
   // ...repeat for each report as needed
-  // See earlier answers for more sample entries
+  {
+    id: "3",
+    type: "Bank Statement",
+    typeKey: "bank_statement",
+    name: "report",
+    status: "processing",
+    date: "Sep 24, 2025",
+  },
+  {
+    id: "4",
+    type: "Other Statement",
+    typeKey: "",
+    name: "other report",
+    status: "processing",
+    date: "Sep 24, 2025",
+  },
 ];
 
 const reportTypeBadge = (typeKey) => {
