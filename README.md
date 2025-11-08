@@ -1,29 +1,70 @@
-# CashFlow Pro — Dashboard & Upload Flow
+# CashFlow Pro — Financial Statement Processing & Forecasting App
 
-This project implements a **two-page flow** for client financial data management:
-
-1. **Dashboard Page** — shows a welcome card and buttons to “Add Client Data” / “Upload Client Documents”.
-2. **Upload Page** — document type selection, drag-and-drop file upload (PDF, CSV, Excel up to 10MB), file list with remove option, and an upload button.
+CashFlow Pro empowers businesses and advisors to seamlessly manage, analyze, and forecast cash flow by processing financial and bank statements. Gain actionable insights and optimize liquidity decisions through powerful data analytics.
 
 ---
 
-## 🛠 Tech Stack Used
-- **React** — frontend library
-- **Vite** — fast development server & build tool
-- **TypeScript** — for type safety
-- **Tailwind CSS v4** — styling with utility classes
-- **React Router** — navigation between Dashboard and Upload pages
+## Key Features Overview
+
+- **Dashboard:**  
+  Centralized view with key metrics and quick actions to add or upload client financial data.
+
+- **Upload Flow:**  
+  User-friendly document upload supporting PDFs, CSVs, Excel files (max 10MB) with drag-and-drop and file management capabilities.
+
+- **Financial Data Processing:**  
+  Extract and parse financial & bank statements for accurate cash flow tracking.
+
+- **Forecasting:**  
+  Generate cash flow forecasts to anticipate liquidity needs and ensure proactive management.
+
+- **Financial Report Analysis:**  
+  Deep dive into detailed financial reports with advanced analytics and AI-driven recommendations.
+
+---
+
+## 🛠 Tech Stack
+
+- **React** — Interactive, component-based frontend UI  
+- **Vite** — Fast dev server, optimized build tooling  
+- **TypeScript** — Strong typing for reliable code  
+- **Tailwind CSS v4** — Utility-first styling for rapid and consistent design  
+- **React Router** — Client-side navigation and routing  
 
 ---
 
 ## Getting Started
 
-### 1. Clone the repository
+### Clone the Repository
+
+```
 git clone https://github.com/GowthamNalluri7/ky-upload.git
-cd cashflow-pro
+cd ky-upload
+```
 
-### 2. Install dependencies
+### Install Dependencies
+
+```
 npm install
+```
 
-### 3. Run the development server
+### Run Development Server
+
+```
 npm run dev
+```
+
+### Access App
+
+Open your browser and visit `http://localhost:3000` (or the port the dev server reports).
+
+---
+
+## Future Enhancements
+
+- Direct bank account link integration for real-time data sync  
+- Multi-user management and permissions  
+- Advanced reporting exports (PDF, Excel)  
+- Automated alerts and notifications on cash flow risks  
+- Mobile optimized experience
+
